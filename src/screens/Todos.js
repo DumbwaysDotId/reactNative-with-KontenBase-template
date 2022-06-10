@@ -2,34 +2,35 @@ import React, { useState, useEffect } from 'react';
 import { View, StyleSheet, FlatList } from 'react-native';
 import { ListItem, CheckBox } from 'react-native-elements';
 
-// Import Axios
-import axios from 'axios';
+import API from '../config/api';
 
 const Todos = (props) => {
   //Init State
   const [todos, setTodos] = useState([]);
+
   const [isLoading, setIsLoading] = useState(false);
+
+  // Create Function to fetch
+  const getTodos = async () => {
+    try {
+      setIsLoading(true);
+      const { data } = await API.get('/Todo');
+
+      if (data) {
+        setTodos(data);
+      }
+
+      setIsLoading(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   // Create LifeCycle
   useEffect(() => {
     //Function Exception
     getTodos();
   }, []);
-
-  // Create Function to fetch
-  const getTodos = () => {
-    setIsLoading(true);
-    axios
-      .get(`https://api.kontenbase.com/query/api/v1/YOUR_API_KEY/Todos`)
-      .then((res) => {
-        setTodos(res.data);
-        setIsLoading(false);
-      })
-      .catch((error) => {
-        alert('Error Fetch Data');
-        setIsLoading(false);
-      });
-  };
 
   //   Create Component List
   const _renderItem = ({ item }) => {
