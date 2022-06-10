@@ -1,36 +1,18 @@
-import React, { useState, useEffect } from 'react';
+// import useState & useEffect
+
 import { View, StyleSheet, FlatList } from 'react-native';
 import { ListItem, CheckBox } from 'react-native-elements';
 
-import API from '../config/api';
+// import API from CONFIG folder
 
 const Todos = (props) => {
-  //Init State
-  const [todos, setTodos] = useState([]);
+  //Init Todos State
 
   const [isLoading, setIsLoading] = useState(false);
 
-  // Create Function to fetch
-  const getTodos = async () => {
-    try {
-      setIsLoading(true);
-      const { data } = await API.get('/Todo');
+  // Create getTodos Function to fetch
 
-      if (data) {
-        setTodos(data);
-      }
-
-      setIsLoading(false);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  // Create LifeCycle
-  useEffect(() => {
-    //Function Exception
-    getTodos();
-  }, []);
+  // Using useEffect for get trigger Did Mount & call getTodos Function
 
   //   Create Component List
   const _renderItem = ({ item }) => {
