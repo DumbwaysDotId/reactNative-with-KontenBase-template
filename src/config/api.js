@@ -2,6 +2,6 @@
 
 // Your API KEY
 
-// Create base URL API
+// Create base URL API variable & Export
 
-// Export API Variable
+// Create setAuthToken Function & Export
